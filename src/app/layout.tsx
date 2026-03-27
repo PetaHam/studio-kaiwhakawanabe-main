@@ -10,6 +10,7 @@ import { AmbientGlow } from '@/components/AmbientGlow';
 import { TutorialTour } from '@/components/TutorialTour';
 import { FloatingArenaLink } from '@/components/FloatingArenaLink';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { WelcomeModal } from '@/components/WelcomeModal';
 
 export const metadata: Metadata = {
   title: 'Kaiwhakawānabe – The Couch Judge',
@@ -38,6 +39,7 @@ export default function RootLayout({
             
             <TutorialTour />
             <FloatingArenaLink />
+            <WelcomeModal />
             
             <main className="max-w-md mx-auto w-full px-4 pt-6 animate-in fade-in zoom-in-95 slide-in-from-bottom-4 duration-300 ease-out relative z-10">
               {children}
