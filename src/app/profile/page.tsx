@@ -24,6 +24,7 @@ import { toast } from '@/hooks/use-toast'
 import { signOut } from 'firebase/auth'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Input } from '@/components/ui/input'
+import { AnalyticsDashboard } from '@/components/AnalyticsDashboard'
 
 export default function ProfilePage() {
  const router = useRouter()
@@ -243,6 +244,10 @@ export default function ProfilePage() {
            </Card>
          ))}
        </div>
+
+      {/* Analytics Dashboard */}
+      <AnalyticsDashboard profile={profile} className="px-1" />
+
      </div>
 
      <Dialog open={isPhotoDialogOpen} onOpenChange={setIsPhotoDialogOpen}>

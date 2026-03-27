@@ -26,6 +26,7 @@ import {
 import { setDocumentNonBlocking, addDocumentNonBlocking, updateDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase/non-blocking-updates'
 import { cn } from '@/lib/utils'
 import { DelegateJudgeModal } from '@/components/DelegateJudgeModal'
+import { EnhancedChatPanel } from '@/components/EnhancedChatPanel'
 
 import { toast } from '@/hooks/use-toast'
 
@@ -58,8 +59,6 @@ function LegacyArenaContent() {
   const [partyId, setPartyId] = useState<string | null>(null)
   const [newPartyName, setNewPartyName] = useState('')
   const [isDialogOpen, setIsDialogOpen] = useState(() => searchParams?.get('action') === 'create')
-  const [comment, setComment] = useState('')
-  const [showScoreboard, setShowScoreboard] = useState(false)
   const [scores, setScores] = useState<Record<string, number>>({
     whakaeke: 50, moteatea: 50, poi: 50, waiata_a_ringa: 50, haka: 50, whakawatea: 50
   })
@@ -159,36 +158,15 @@ function LegacyArenaContent() {
         </div>
       ) : (
         <div className="flex-1 flex flex-col overflow-hidden animate-in fade-in">
-          {showScoreboard && (
-            <div className="px-6 pb-8 pt-2 animate-in slide-in-from-top-4 bg-slate-50 border-b">
-              <div className="grid grid-cols-2 gap-x-8 gap-y-6">
-                {ADJUDICATION_ITEMS.map(item => (
-                  <div key={item.id} className="space-y-2">
-                    <div className="flex justify-between items-center"><label className="text-[9px] font-black uppercase italic">{item.name}</label><span className="text-[10px] font-black text-primary">{scores[item.id].toFixed(1)}%</span></div>
-                    <Slider value={[scores[item.id]]} max={100} step={0.1} onValueChange={v => setScores(p => ({ ...p, [item.id]: v[0] }))} disabled={activeParty?.leaderId !== user?.uid && !currentMember?.assignedItems?.includes(item.id)} className={cn(activeParty?.leaderId !== user?.uid && !currentMember?.assignedItems?.includes(item.id) && "opacity-40 grayscale")} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          <ScrollArea className="flex-1 px-4 pt-6">
-            <div className="flex flex-col gap-4 pb-10">
-              {partyMessages?.map(m => (
-                <div key={m.id} className={cn("flex flex-col", m.userId === user?.uid ? "items-end" : "items-start")}>
-                  <div className="p-3 rounded-2xl text-[11px] shadow-sm bg-white border max-w-[85%]">{m.text}</div>
-                </div>
-              ))}
-              <div ref={scrollRef} />
-            </div>
-          </ScrollArea>
-          <div className="p-4 bg-white border-t rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-            <div className="flex justify-center mb-4 mt-[-2.5rem] relative z-20">
-              <Button variant="outline" size="sm" onClick={() => setShowScoreboard(!showScoreboard)} className="h-10 px-6 rounded-full font-black text-[10px] uppercase italic gap-2 shadow-xl bg-white border-slate-200 text-primary">
-                <Gavel className="w-4 h-4" /> {showScoreboard ? 'CLOSE PANEL' : 'JUDGE PANEL'}
-              </Button>
-            </div>
-            <div className="relative"><Input placeholder="Type technical hot-take..." value={comment} onChange={e => setComment(e.target.value)} className="rounded-2xl h-14 bg-slate-50 pr-14" /><Button className="absolute right-1.5 top-1/2 -translate-y-1/2 h-11 w-11 p-0 rounded-xl bg-primary text-slate-950" onClick={() => handleSendMessage(comment)} disabled={!comment.trim()}><Send className="w-4 h-4" /></Button></div>
-          </div>
+          <EnhancedChatPanel
+            partyMessages={partyMessages || []}
+            currentUserId={user?.uid || ''}
+            scores={scores}
+            onScoreChange={(itemId, value) => setScores(p => ({ ...p, [itemId]: value }))}
+            onSendMessage={handleSendMessage}
+            isLeader={activeParty?.leaderId === user?.uid}
+            assignedItems={currentMember?.assignedItems || []}
+          />
         </div>
       )}
     </div>
