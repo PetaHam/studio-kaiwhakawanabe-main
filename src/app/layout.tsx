@@ -11,10 +11,24 @@ import { TutorialTour } from '@/components/TutorialTour';
 import { FloatingArenaLink } from '@/components/FloatingArenaLink';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { WelcomeModal } from '@/components/WelcomeModal';
+import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
 
 export const metadata: Metadata = {
   title: 'Kaiwhakawānabe – The Couch Judge',
   description: 'Live Kapa Haka Fan Judging & Engagement',
+  manifest: '/manifest.json',
+  themeColor: '#FF4500',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Kapa Haka Judge',
+  },
 };
 
 export default function RootLayout({
@@ -28,8 +42,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#FF4500" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body className="font-body antialiased bg-white text-foreground min-h-screen selection:bg-primary/30 relative">
+        <ServiceWorkerRegistration />
         <ErrorBoundary>
           <FirebaseClientProvider>
             {/* Layered Branding Background */}
