@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { Suspense,  useState, useEffect, useMemo, useRef } from 'react'
@@ -112,7 +111,6 @@ function LegacyArenaContent() {
   const handleSendMessage = (text: string) => {
     if (!user || !text || !partyId) return
     addDocumentNonBlocking(collection(db, 'parties', partyId, 'messages'), { userId: user.uid, userName: user.displayName || 'Judge', userColor: getRandomColor(user.uid), text: text.trim(), timestamp: serverTimestamp() })
-    setComment('')
   }
 
   const handleDisconnect = () => {

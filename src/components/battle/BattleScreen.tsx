@@ -103,57 +103,57 @@ export function BattleScreen({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className=\"max-w-2xl border-0 bg-transparent p-0 overflow-hidden\">
-        <div className=\"relative min-h-[600px] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 rounded-[3rem] overflow-hidden\">
+      <DialogContent className="max-w-2xl border-0 bg-transparent p-0 overflow-hidden">
+        <div className="relative min-h-[600px] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 rounded-[3rem] overflow-hidden">
           {/* Animated Background */}
-          <div className=\"absolute inset-0 opacity-20\">
+          <div className="absolute inset-0 opacity-20">
             <div className={cn(
-              \"absolute inset-0 bg-gradient-to-br\",
+              "absolute inset-0 bg-gradient-to-br",
               isLegendary 
-                ? \"from-purple-500 via-pink-500 to-orange-500 animate-shimmer\"
-                : \"from-primary via-orange-500 to-red-500\"
+                ? "from-purple-500 via-pink-500 to-orange-500 animate-shimmer"
+                : "from-primary via-orange-500 to-red-500"
             )} />
           </div>
 
           {/* Content */}
-          <div className=\"relative z-10 p-8 space-y-8\">
+          <div className="relative z-10 p-8 space-y-8">
             {/* Pre-Battle Phase */}
             {phase === 'pre-battle' && (
-              <div className=\"flex flex-col items-center justify-center min-h-[500px] space-y-12 animate-in fade-in zoom-in duration-500\">
-                <div className=\"text-center space-y-4\">
-                  <Swords className=\"w-20 h-20 mx-auto text-primary animate-pulse\" />
-                  <h2 className=\"text-4xl font-black uppercase italic text-white\">
+              <div className="flex flex-col items-center justify-center min-h-[500px] space-y-12 animate-in fade-in zoom-in duration-500">
+                <div className="text-center space-y-4">
+                  <Swords className="w-20 h-20 mx-auto text-primary animate-pulse" />
+                  <h2 className="text-4xl font-black uppercase italic text-white">
                     Battle Arena
                   </h2>
-                  <p className=\"text-sm font-bold uppercase tracking-widest text-white/70\">
+                  <p className="text-sm font-bold uppercase tracking-widest text-white/70">
                     Prepare yourself, judge!
                   </p>
                 </div>
 
                 {/* Countdown */}
-                <div className=\"relative\">
-                  <div className=\"absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse\" />
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl animate-pulse" />
                   <div className={cn(
-                    \"relative text-9xl font-black text-white\",
-                    \"transition-all duration-300\",
-                    countdown <= 1 && \"text-primary scale-125\"
+                    "relative text-9xl font-black text-white",
+                    "transition-all duration-300",
+                    countdown <= 1 && "text-primary scale-125"
                   )}>
                     {countdown}
                   </div>
                 </div>
 
                 {/* Team Preview */}
-                <div className=\"flex items-center gap-8\">
-                  <div className=\"text-center\">
-                    <p className=\"text-xs font-bold uppercase text-white/50 mb-2\">Your Team</p>
-                    <p className=\"text-lg font-black text-white\">{playerTeam.performance.name}</p>
+                <div className="flex items-center gap-8">
+                  <div className="text-center">
+                    <p className="text-xs font-bold uppercase text-white/50 mb-2">Your Team</p>
+                    <p className="text-lg font-black text-white">{playerTeam.performance.name}</p>
                   </div>
                   
-                  <div className=\"text-4xl font-black text-white/30\">VS</div>
+                  <div className="text-4xl font-black text-white/30">VS</div>
                   
-                  <div className=\"text-center\">
-                    <p className=\"text-xs font-bold uppercase text-white/50 mb-2\">Opponent</p>
-                    <p className=\"text-lg font-black text-white\">{opponentTeam.performance.name}</p>
+                  <div className="text-center">
+                    <p className="text-xs font-bold uppercase text-white/50 mb-2">Opponent</p>
+                    <p className="text-lg font-black text-white">{opponentTeam.performance.name}</p>
                   </div>
                 </div>
               </div>
@@ -161,26 +161,26 @@ export function BattleScreen({
 
             {/* Battle Phase */}
             {phase === 'battling' && (
-              <div className=\"space-y-8 animate-in slide-in-from-top duration-500\">
+              <div className="space-y-8 animate-in slide-in-from-top duration-500">
                 {/* Score Display */}
-                <div className=\"flex items-center justify-between px-8\">
-                  <div className=\"text-center space-y-2\">
-                    <p className=\"text-xs font-bold uppercase tracking-widest text-white/70\">Your Score</p>
+                <div className="flex items-center justify-between px-8">
+                  <div className="text-center space-y-2">
+                    <p className="text-xs font-bold uppercase tracking-widest text-white/70">Your Score</p>
                     <p className={cn(
-                      \"text-5xl font-black tabular-nums transition-all duration-300\",
-                      playerScore > opponentScore ? \"text-green-400 scale-110\" : \"text-white\"
+                      "text-5xl font-black tabular-nums transition-all duration-300",
+                      playerScore > opponentScore ? "text-green-400 scale-110" : "text-white"
                     )}>
                       {playerScore}
                     </p>
                   </div>
 
-                  <Zap className=\"w-12 h-12 text-primary animate-pulse\" />
+                  <Zap className="w-12 h-12 text-primary animate-pulse" />
 
-                  <div className=\"text-center space-y-2\">
-                    <p className=\"text-xs font-bold uppercase tracking-widest text-white/70\">Opponent</p>
+                  <div className="text-center space-y-2">
+                    <p className="text-xs font-bold uppercase tracking-widest text-white/70">Opponent</p>
                     <p className={cn(
-                      \"text-5xl font-black tabular-nums transition-all duration-300\",
-                      opponentScore > playerScore ? \"text-red-400 scale-110\" : \"text-white\"
+                      "text-5xl font-black tabular-nums transition-all duration-300",
+                      opponentScore > playerScore ? "text-red-400 scale-110" : "text-white"
                     )}>
                       {opponentScore}
                     </p>
@@ -188,15 +188,15 @@ export function BattleScreen({
                 </div>
 
                 {/* Progress Bar */}
-                <div className=\"relative h-2 bg-white/10 rounded-full overflow-hidden\">
+                <div className="relative h-2 bg-white/10 rounded-full overflow-hidden">
                   <div 
-                    className=\"absolute inset-y-0 left-0 bg-gradient-to-r from-green-500 to-primary transition-all duration-500\"
+                    className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-500 to-primary transition-all duration-500"
                     style={{ width: `${(currentItem / items.length) * 100}%` }}
                   />
                 </div>
 
                 {/* Item Breakdown */}
-                <div className=\"grid grid-cols-2 gap-4\">
+                <div className="grid grid-cols-2 gap-4">
                   {items.map((item, index) => {
                     const revealed = index < currentItem
                     const playerItemScore = playerTeam.lineup[item] || 0
@@ -206,23 +206,23 @@ export function BattleScreen({
                       <div 
                         key={item}
                         className={cn(
-                          \"p-4 rounded-2xl backdrop-blur-xl bg-white/5 border border-white/10\",
-                          \"transition-all duration-500\",
-                          revealed ? \"opacity-100 scale-100\" : \"opacity-30 scale-95\"
+                          "p-4 rounded-2xl backdrop-blur-xl bg-white/5 border border-white/10",
+                          "transition-all duration-500",
+                          revealed ? "opacity-100 scale-100" : "opacity-30 scale-95"
                         )}
                       >
-                        <p className=\"text-xs font-bold uppercase text-white/70 mb-2\">{item}</p>
-                        <div className=\"flex items-center justify-between\">
+                        <p className="text-xs font-bold uppercase text-white/70 mb-2">{item}</p>
+                        <div className="flex items-center justify-between">
                           <span className={cn(
-                            \"text-lg font-black\",
-                            revealed && playerItemScore > opponentItemScore ? \"text-green-400\" : \"text-white\"
+                            "text-lg font-black",
+                            revealed && playerItemScore > opponentItemScore ? "text-green-400" : "text-white"
                           )}>
                             {revealed ? playerItemScore : '---'}
                           </span>
-                          <span className=\"text-white/30\">vs</span>
+                          <span className="text-white/30">vs</span>
                           <span className={cn(
-                            \"text-lg font-black\",
-                            revealed && opponentItemScore > playerItemScore ? \"text-red-400\" : \"text-white\"
+                            "text-lg font-black",
+                            revealed && opponentItemScore > playerItemScore ? "text-red-400" : "text-white"
                           )}>
                             {revealed ? opponentItemScore : '---'}
                           </span>
@@ -236,7 +236,7 @@ export function BattleScreen({
 
             {/* Result Phase */}
             {phase === 'result' && winner && (
-              <div className=\"flex flex-col items-center justify-center min-h-[500px] space-y-8 animate-in zoom-in duration-700\">
+              <div className="flex flex-col items-center justify-center min-h-[500px] space-y-8 animate-in zoom-in duration-700">
                 <VictoryEffect 
                   isWinner={winner === 'player'} 
                   intensity={settings.effectsIntensity}
@@ -244,35 +244,35 @@ export function BattleScreen({
                 />
 
                 <Trophy className={cn(
-                  \"w-24 h-24 animate-bounce-in\",
-                  winner === 'player' ? \"text-yellow-400\" : \"text-white/50\"
+                  "w-24 h-24 animate-bounce-in",
+                  winner === 'player' ? "text-yellow-400" : "text-white/50"
                 )} />
 
-                <div className=\"text-center space-y-4\">
+                <div className="text-center space-y-4">
                   <h2 className={cn(
-                    \"text-5xl font-black uppercase italic\",
-                    winner === 'player' ? \"text-yellow-400\" : \"text-white\"
+                    "text-5xl font-black uppercase italic",
+                    winner === 'player' ? "text-yellow-400" : "text-white"
                   )}>
                     {winner === 'player' ? 'VICTORY!' : 'DEFEATED'}
                   </h2>
                   
-                  <p className=\"text-lg font-medium text-white/70\">
-                    Final Score: <span className=\"font-black text-white\">{playerScore}</span> vs{' '}
-                    <span className=\"font-black text-white\">{opponentScore}</span>
+                  <p className="text-lg font-medium text-white/70">
+                    Final Score: <span className="font-black text-white">{playerScore}</span> vs{' '}
+                    <span className="font-black text-white">{opponentScore}</span>
                   </p>
 
                   {winner === 'player' && (
-                    <div className=\"inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary/20 border-2 border-primary\">
-                      <Zap className=\"w-5 h-5 text-primary\" />
-                      <span className=\"text-xl font-black text-primary\">+250 Mana Shards</span>
+                    <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary/20 border-2 border-primary">
+                      <Zap className="w-5 h-5 text-primary" />
+                      <span className="text-xl font-black text-primary">+250 Mana Shards</span>
                     </div>
                   )}
                 </div>
 
-                <div className=\"flex gap-4\">
+                <div className="flex gap-4">
                   <Button
                     onClick={handleClose}
-                    className=\"h-14 px-8 rounded-2xl font-black uppercase italic bg-primary text-slate-950\"
+                    className="h-14 px-8 rounded-2xl font-black uppercase italic bg-primary text-slate-950"
                   >
                     Continue
                   </Button>
@@ -285,8 +285,8 @@ export function BattleScreen({
                       setCurrentItem(0)
                       setWinner(null)
                     }}
-                    variant=\"outline\"
-                    className=\"h-14 px-8 rounded-2xl font-black uppercase italic text-white border-white/20\"
+                    variant="outline"
+                    className="h-14 px-8 rounded-2xl font-black uppercase italic text-white border-white/20"
                   >
                     Rematch
                   </Button>

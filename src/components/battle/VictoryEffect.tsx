@@ -127,7 +127,7 @@ export function VictoryEffect({ isWinner, intensity = 'high', enabled = true }: 
   return (
     <canvas
       ref={canvasRef}
-      className=\"fixed inset-0 pointer-events-none z-50\"
+      className="fixed inset-0 pointer-events-none z-50"
       style={{ mixBlendMode: 'screen' }}
     />
   )

@@ -1,15 +1,15 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
-import { Send, Gavel, Users, X, Crown, UserCheck } from 'lucide-react'
+import { Send, Gavel, Users, X, Crown, UserCheck, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Slider } from '@/components/ui/slider'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { cn } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 
 const ADJUDICATION_ITEMS = [
   { id: 'whakaeke', name: 'Whakaeke' },
@@ -45,6 +45,11 @@ export function EnhancedChatPanel({
   const [showScoreboard, setShowScoreboard] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
 
+  // Confirmation modal state
+  const [editingItem, setEditingItem] = useState<string | null>(null)
+  const [pendingValue, setPendingValue] = useState<number>(0)
+  const [originalValue, setOriginalValue] = useState<number>(0)
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: 'smooth' })
@@ -55,6 +60,34 @@ export function EnhancedChatPanel({
     if (!message.trim()) return
     onSendMessage(message)
     setMessage('')
+  }
+
+  const handleSliderStart = (itemId: string) => {
+    const canEdit = isLeader || assignedItems.includes(itemId)
+    if (!canEdit) return
+    
+    setEditingItem(itemId)
+    setPendingValue(scores[itemId] || 50)
+    setOriginalValue(scores[itemId] || 50)
+  }
+
+  const handleSliderChange = (value: number[]) => {
+    if (!editingItem) return
+    setPendingValue(value[0])
+  }
+
+  const handleConfirmScore = () => {
+    if (editingItem) {
+      onScoreChange(editingItem, pendingValue)
+      setEditingItem(null)
+    }
+  }
+
+  const handleCancelScore = () => {
+    if (editingItem) {
+      onScoreChange(editingItem, originalValue)
+      setEditingItem(null)
+    }
   }
 
   return (
@@ -81,6 +114,8 @@ export function EnhancedChatPanel({
           <div className="grid grid-cols-2 gap-x-6 gap-y-5">
             {ADJUDICATION_ITEMS.map(item => {
               const canEdit = isLeader || assignedItems.includes(item.id)
+              const isEditingThisItem = editingItem === item.id
+              
               return (
                 <div key={item.id} className="space-y-2">
                   <div className="flex justify-between items-center">
@@ -97,20 +132,69 @@ export function EnhancedChatPanel({
                       "text-[11px] font-black tabular-nums",
                       canEdit ? "text-primary" : "text-slate-400"
                     )}>
-                      {scores[item.id]?.toFixed(1) || 50}%
+                      {isEditingThisItem ? pendingValue.toFixed(1) : (scores[item.id]?.toFixed(1) || 50)}%
                     </span>
                   </div>
-                  <Slider
-                    value={[scores[item.id] || 50]}
-                    max={100}
-                    step={0.1}
-                    onValueChange={v => onScoreChange(item.id, v[0])}
-                    disabled={!canEdit}
-                    className={cn(
-                      "transition-opacity",
-                      !canEdit && "opacity-40 cursor-not-allowed"
+                  
+                  <div className="relative">
+                    <Slider
+                      value={[isEditingThisItem ? pendingValue : (scores[item.id] || 50)]}
+                      max={100}
+                      step={0.1}
+                      onPointerDown={() => handleSliderStart(item.id)}
+                      onValueChange={v => handleSliderChange(v)}
+                      disabled={!canEdit || editingItem !== null && editingItem !== item.id}
+                      className={cn(
+                        "transition-opacity",
+                        !canEdit && "opacity-40 cursor-not-allowed",
+                        editingItem !== null && editingItem !== item.id && "opacity-50"
+                      )}
+                    />
+
+                    {/* Confirmation Modal */}
+                    {isEditingThisItem && (
+                      <div className="absolute -top-20 left-0 right-0 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <Card className="p-4 bg-white shadow-xl border-2 border-primary/50 rounded-2xl">
+                          <div className="space-y-3">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-black uppercase text-slate-500">
+                                {item.name}
+                              </span>
+                              <span className="text-xl font-black text-primary tabular-nums">
+                                {pendingValue.toFixed(1)}%
+                              </span>
+                            </div>
+                            
+                            <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
+                              <div 
+                                className="h-full bg-gradient-to-r from-primary to-primary/70 transition-all duration-150"
+                                style={{ width: `${pendingValue}%` }}
+                              />
+                            </div>
+
+                            <div className="flex gap-2 pt-2">
+                              <Button
+                                onClick={handleCancelScore}
+                                variant="outline"
+                                size="sm"
+                                className="flex-1 h-9 rounded-xl text-[10px] font-black uppercase"
+                              >
+                                Cancel
+                              </Button>
+                              <Button
+                                onClick={handleConfirmScore}
+                                size="sm"
+                                className="flex-1 h-9 rounded-xl text-[10px] font-black uppercase bg-primary text-slate-950 hover:bg-primary/90"
+                              >
+                                <Check className="w-3 h-3 mr-1" />
+                                Confirm
+                              </Button>
+                            </div>
+                          </div>
+                        </Card>
+                      </div>
                     )}
-                  />
+                  </div>
                 </div>
               )
             })}
