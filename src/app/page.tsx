@@ -39,7 +39,7 @@ import { cn } from '@/lib/utils'
 import { legacyPerformances, type LegacyPerformance } from '@/lib/legacy-data'
 import { UnlockReveal } from '@/components/UnlockReveal'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { StoreModal } from '@/components/StoreModal'
+import { UnifiedStoreModal } from '@/components/UnifiedStoreModal'
 import { FollowGroupsModal } from '@/components/FollowGroupsModal'
 import { JudgesHonourCard, JudgesHonourModal } from '@/components/JudgesModal'
 
@@ -336,7 +336,7 @@ export default function Home() {
 
   return (
     <div className="space-y-8 pb-32 animate-in fade-in duration-300">
-      <StoreModal isOpen={isStoreOpen} onClose={() => setIsStoreOpen(false)} />
+      <UnifiedStoreModal isOpen={isStoreOpen} onClose={() => setIsStoreOpen(false)} />
       <FollowGroupsModal isOpen={isFollowGroupsOpen} onClose={() => setIsFollowGroupsOpen(false)} />
       <JudgesHonourModal isOpen={isJudgesModalOpen} onClose={() => setIsJudgesModalOpen(false)} />
       <UnlockReveal performance={recentlyWonRoopu} onClose={() => setRecentlyWonRoopu(null)} />

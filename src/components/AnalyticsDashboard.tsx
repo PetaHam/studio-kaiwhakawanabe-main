@@ -67,74 +67,70 @@ export function AnalyticsDashboard({ profile, className }: AnalyticsDashboardPro
   const unlockedCount = achievements.filter(a => a.unlocked).length
 
   return (
-    <div className={cn(\"space-y-6\", className)}>
-      {/* Stats Overview */}
-      <Card className=\"bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 shadow-xl rounded-[3rem] overflow-hidden\">
-        <div className=\"h-2 w-full bg-gradient-to-r from-primary via-orange-500 to-red-500\" />
-        <CardHeader className=\"pb-4\">
-          <div className=\"flex items-center justify-between\">
-            <CardTitle className=\"text-lg font-black uppercase italic\">
+    <div className={cn("space-y-6", className)}>
+      <Card className="bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 shadow-xl rounded-[3rem] overflow-hidden">
+        <div className="h-2 w-full bg-gradient-to-r from-primary via-orange-500 to-red-500" />
+        <CardHeader className="pb-4">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg font-black uppercase italic">
               Judge Analytics
             </CardTitle>
-            <Badge variant=\"outline\" className=\"text-[9px] font-black uppercase border-primary/30 text-primary\">
-              <Activity className=\"w-3 h-3 mr-1\" />
+            <Badge variant="outline" className="text-[9px] font-black uppercase border-primary/30 text-primary">
+              <Activity className="w-3 h-3 mr-1" />
               {stats.rank}
             </Badge>
           </div>
         </CardHeader>
-        <CardContent className=\"space-y-6 pb-8\">
-          {/* Key Metrics Grid */}
-          <div className=\"grid grid-cols-2 gap-3\">
+        <CardContent className="space-y-6 pb-8">
+          <div className="grid grid-cols-2 gap-3">
             <MetricCard
               icon={Gavel}
-              label=\"Total Votes\"
+              label="Total Votes"
               value={stats.totalVotes}
-              color=\"bg-blue-500\"
+              color="bg-blue-500"
             />
             <MetricCard
               icon={MessageSquare}
-              label=\"Comments\"
+              label="Comments"
               value={stats.totalComments}
-              color=\"bg-green-500\"
+              color="bg-green-500"
             />
             <MetricCard
               icon={Flame}
-              label=\"Mana Shards\"
+              label="Mana Shards"
               value={stats.manaShards.toLocaleString()}
-              color=\"bg-orange-500\"
+              color="bg-orange-500"
             />
             <MetricCard
               icon={Heart}
-              label=\"Hearts\"
+              label="Hearts"
               value={stats.receivedHearts}
-              color=\"bg-pink-500\"
+              color="bg-pink-500"
             />
           </div>
 
-          {/* Weekly Activity */}
-          <div className=\"space-y-3 pt-4 border-t border-slate-200\">
-            <div className=\"flex items-center justify-between\">
-              <p className=\"text-[10px] font-black uppercase tracking-widest text-slate-500\">
+          <div className="space-y-3 pt-4 border-t border-slate-200">
+            <div className="flex items-center justify-between">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
                 Weekly Activity
               </p>
-              <Badge variant=\"outline\" className=\"text-[8px] font-black\">
+              <Badge variant="outline" className="text-[8px] font-black">
                 {stats.weeklyActivity}%
               </Badge>
             </div>
-            <Progress value={stats.weeklyActivity} className=\"h-2\" />
+            <Progress value={stats.weeklyActivity} className="h-2" />
           </div>
 
-          {/* Top Judged Items */}
           {stats.topItems.length > 0 && (
-            <div className=\"space-y-3 pt-4 border-t border-slate-200\">
-              <p className=\"text-[10px] font-black uppercase tracking-widest text-slate-500\">
+            <div className="space-y-3 pt-4 border-t border-slate-200">
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
                 Most Judged Items
               </p>
-              <div className=\"space-y-2\">
+              <div className="space-y-2">
                 {stats.topItems.slice(0, 3).map((item, idx) => (
-                  <div key={idx} className=\"flex items-center justify-between text-[11px]\">
-                    <span className=\"font-bold text-slate-700\">{item.name}</span>
-                    <Badge variant=\"secondary\" className=\"text-[9px] font-black\">
+                  <div key={idx} className="flex items-center justify-between text-[11px]">
+                    <span className="font-bold text-slate-700">{item.name}</span>
+                    <Badge variant="secondary" className="text-[9px] font-black">
                       {item.count}x
                     </Badge>
                   </div>
@@ -145,49 +141,48 @@ export function AnalyticsDashboard({ profile, className }: AnalyticsDashboardPro
         </CardContent>
       </Card>
 
-      {/* Achievements */}
-      <Card className=\"bg-white border-2 border-slate-200 shadow-xl rounded-[3rem] overflow-hidden\">
-        <CardHeader className=\"pb-4\">
-          <div className=\"flex items-center justify-between\">
-            <CardTitle className=\"text-lg font-black uppercase italic\">
+      <Card className="bg-white border-2 border-slate-200 shadow-xl rounded-[3rem] overflow-hidden">
+        <CardHeader className="pb-4">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg font-black uppercase italic">
               Achievements
             </CardTitle>
-            <Badge className=\"bg-primary text-slate-950 text-[9px] font-black\">
+            <Badge className="bg-primary text-slate-950 text-[9px] font-black">
               {unlockedCount}/{achievements.length}
             </Badge>
           </div>
         </CardHeader>
-        <CardContent className=\"space-y-3 pb-6\">
+        <CardContent className="space-y-3 pb-6">
           {achievements.map(achievement => (
             <div
               key={achievement.id}
               className={cn(
-                \"p-4 rounded-2xl border-2 transition-all\",
+                "p-4 rounded-2xl border-2 transition-all",
                 achievement.unlocked
-                  ? \"bg-white border-slate-200 shadow-sm\"
-                  : \"bg-slate-50 border-slate-100 opacity-50\"
+                  ? "bg-white border-slate-200 shadow-sm"
+                  : "bg-slate-50 border-slate-100 opacity-50"
               )}
             >
-              <div className=\"flex items-start gap-3\">
+              <div className="flex items-start gap-3">
                 <div className={cn(
-                  \"p-3 rounded-xl shrink-0\",
-                  achievement.unlocked ? \"bg-primary/10\" : \"bg-slate-200\"
+                  "p-3 rounded-xl shrink-0",
+                  achievement.unlocked ? "bg-primary/10" : "bg-slate-200"
                 )}>
                   <achievement.icon className={cn(
-                    \"w-5 h-5\",
-                    achievement.unlocked ? achievement.color : \"text-slate-400\"
+                    "w-5 h-5",
+                    achievement.unlocked ? achievement.color : "text-slate-400"
                   )} />
                 </div>
-                <div className=\"flex-1 space-y-1\">
-                  <div className=\"flex items-center justify-between\">
-                    <h4 className=\"text-xs font-black uppercase text-slate-950\">
+                <div className="flex-1 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-xs font-black uppercase text-slate-950">
                       {achievement.name}
                     </h4>
                     {achievement.unlocked && (
-                      <Award className=\"w-4 h-4 text-yellow-500\" />
+                      <Award className="w-4 h-4 text-yellow-500" />
                     )}
                   </div>
-                  <p className=\"text-[10px] font-medium text-slate-500 leading-relaxed\">
+                  <p className="text-[10px] font-medium text-slate-500 leading-relaxed">
                     {achievement.description}
                   </p>
                 </div>
@@ -212,17 +207,17 @@ function MetricCard({
   color: string 
 }) {
   return (
-    <div className=\"bg-white border-2 border-slate-100 rounded-2xl p-4 space-y-3 shadow-sm\">
-      <div className=\"flex items-center justify-between\">
-        <div className={cn(\"p-2 rounded-xl\", color)}>
-          <Icon className=\"w-4 h-4 text-white\" />
+    <div className="bg-white border-2 border-slate-100 rounded-2xl p-4 space-y-3 shadow-sm">
+      <div className="flex items-center justify-between">
+        <div className={cn("p-2 rounded-xl", color)}>
+          <Icon className="w-4 h-4 text-white" />
         </div>
       </div>
-      <div className=\"space-y-1\">
-        <p className=\"text-2xl font-black tabular-nums text-slate-950\">
+      <div className="space-y-1">
+        <p className="text-2xl font-black tabular-nums text-slate-950">
           {value}
         </p>
-        <p className=\"text-[9px] font-bold uppercase tracking-widest text-slate-500\">
+        <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">
           {label}
         </p>
       </div>
@@ -240,13 +235,11 @@ function calculateRank(profile: any): string {
 }
 
 function calculateWeeklyActivity(profile: any): number {
-  // Simplified calculation - in real app, check timestamps
   const totalActivity = (profile?.voteCount || 0) + (profile?.commentCount || 0)
   return Math.min(100, totalActivity * 2)
 }
 
 function getTopJudgedItems(profile: any): { name: string; count: number }[] {
-  // Mock data - in real app, query actual voting history
   return [
     { name: 'Haka', count: 15 },
     { name: 'Poi', count: 12 },
