@@ -131,7 +131,7 @@ export function useLongPress(
   options: { delay?: number } = {}
 ) {
   const { delay = 500 } = options
-  const timeout = useRef<NodeJS.Timeout>()
+  const timeout = useRef<NodeJS.Timeout | undefined>()
 
   const start = () => {
     timeout.current = setTimeout(callback, delay)
