@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useMemo, useEffect } from 'react'
@@ -335,19 +334,19 @@ export default function MatchupsPage() {
      <Card id="tour-draft-builder" className="border border-slate-200 bg-white rounded-[3rem] overflow-hidden shadow-sm relative mx-1">
        <div className="p-8 space-y-8">
          <div className="space-y-2">
-           <label className="text-[9px] font-black uppercase tracking-[0.2em] text-primary flex items-center gap-2 ml-1">
+           <label className="text-[9px] font-black uppercase tracking-[0.2em] text-primary display-text flex items-center gap-2 ml-1">
              <Edit3 className="w-3.5 h-3.5" /> ROOPŪ DESIGNATION
            </label>
            <Input
              placeholder="e.g. Te Kapa Haka o [Your Name]"
              value={roopuName}
              onChange={(e) => handleUpdateRoopuName(e.target.value)}
-             className="h-14 text-lg font-black uppercase italic rounded-2xl bg-slate-50 border-none focus-visible:ring-primary shadow-inner placeholder:text-slate-300"
+             className="h-14 text-lg font-black uppercase italic rounded-2xl bg-surface-low border-none focus-visible:ring-primary shadow-inner placeholder:text-slate-300"
            />
          </div>
 
          <div className="flex items-center justify-between px-1">
-            <h2 className="text-[10px] font-black uppercase tracking-widest text-primary flex items-center gap-2">
+            <h2 className="text-[10px] font-black uppercase tracking-widest text-primary display-text flex items-center gap-2">
               <ShieldCheck className="w-4 h-4" /> PERFORMANCE SLOTS
             </h2>
             <TooltipProvider>
@@ -460,7 +459,7 @@ export default function MatchupsPage() {
                     return (
                       <Card
                         key={perf.id}
-                        className="overflow-hidden border border-slate-200 bg-white relative h-44 group cursor-pointer rounded-[2.5rem] shadow-sm transition-all hover:scale-[1.02] hover:shadow-md"
+                        className="surface-low border ghost-border rounded-[2.5rem] shadow-sm ambient-shadow overflow-hidden relative h-44 group cursor-pointer hover:scale-[1.02] transition-all"
                         onClick={() => isOwned ? null : setTeamToUnlock(perf)}
                       >
                         <Image
@@ -630,7 +629,7 @@ export default function MatchupsPage() {
                     return (
                       <Card
                         key={perf.id}
-                        className="overflow-hidden border border-slate-200 bg-white relative h-44 group cursor-pointer rounded-[2.5rem] shadow-sm transition-all hover:scale-[1.02] hover:shadow-md"
+                        className="surface-low border ghost-border rounded-[2.5rem] shadow-sm ambient-shadow overflow-hidden relative h-44 group cursor-pointer hover:scale-[1.02] transition-all"
                         onClick={() => isOwned ? null : setTeamToUnlock(perf)}
                       >
                         <Image

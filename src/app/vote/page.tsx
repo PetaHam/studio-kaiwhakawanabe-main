@@ -261,23 +261,20 @@ export default function VotePage() {
         "sticky top-4 z-40 transition-all duration-500 ease-in-out px-1",
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-24 opacity-0"
       )}>
-        <div className="bg-white/80 backdrop-blur-lg border border-slate-200/50 rounded-[2.5rem] p-4 shadow-2xl flex items-center gap-4">
+        <div className="bg-white/80 backdrop-blur-lg glass-card border-slate-200/50 rounded-[2.5rem] p-4 shadow-2xl flex items-center justify-between">
           <Button variant="ghost" size="icon" onClick={() => router.push('/')} className="h-10 w-10 rounded-full bg-slate-50 border border-slate-200 shadow-sm shrink-0">
             <ChevronLeft className="w-5 h-5" />
           </Button>
           <div className="flex flex-col gap-0.5">
             <h1 className="text-xl font-black uppercase italic tracking-tighter text-slate-950 dark:white leading-none">CIRCUIT</h1>
-            <p className="text-[8px] font-black uppercase tracking-[0.2em] text-primary">Live Qualifiers & Regional Hub</p>
+            <p className="text-[8px] font-black uppercase tracking-[0.2em] text-primary display-text">Live Qualifiers & Regional Hub</p>
           </div>
         </div>
       </header>
 
       <div id="tour-live-feed" className="space-y-8 px-1 min-h-[40vh]">
         {sortedRegions.map((region) => (
-          <Card key={region.id} className={cn(
-            "overflow-hidden border border-slate-200 bg-white shadow-md relative rounded-[2.5rem] transition-all",
-            region.isClosed && "opacity-80"
-          )}>
+          <Card key={region.id} className="surface-low border ghost-border rounded-[2.5rem] shadow-xl ambient-shadow p-8 text-center space-y-6">
             <div className="relative h-44 w-full">
               <Image 
                 src={region.image} 
@@ -393,11 +390,9 @@ export default function VotePage() {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-[350px] rounded-3xl border border-slate-200 bg-white p-8">
+        <DialogContent className="max-w-[350px] rounded-[3rem] border border-slate-200 bg-white p-8 shadow-2xl">
           <DialogHeader>
-            <DialogTitle className="uppercase italic font-black text-xl text-slate-950 flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-primary" /> Discussion Lobby
-            </DialogTitle>
+            <DialogTitle className="uppercase italic font-black text-xl text-slate-950 display-text">Discussion Lobby</DialogTitle>
             <DialogDescription className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pt-1">
               Initializing Group Session for {targetGroupForChat?.name}
             </DialogDescription>
@@ -409,12 +404,12 @@ export default function VotePage() {
                 placeholder="e.g. Technical Adjudicators Hub" 
                 value={newPartyName} 
                 onChange={e => setNewPartyName(e.target.value)}
-                className="bg-slate-50 rounded-xl h-12"
+                className="bg-surface-low rounded-xl h-12"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button className="w-full font-black uppercase italic h-12 text-slate-950" onClick={handleCreateParty}>
+            <Button className="w-full font-black uppercase italic h-12 signature-gradient text-slate-950" onClick={handleCreateParty}>
               SYNC LOBBY
             </Button>
           </DialogFooter>
