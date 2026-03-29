@@ -73,7 +73,7 @@ export function TeamCard({ team, power, isActive, showStats, className, tier = '
               {team.name}
             </h3>
             <p className="text-sm font-medium text-white/70 mt-1">
-              {team.iwi} • {team.year}
+              {team.location} • {team.year}
             </p>
           </div>
           

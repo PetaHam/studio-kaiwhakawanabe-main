@@ -74,3 +74,4 @@ firestore-debug.log-e
 # Environment files
 *.env
 *.env.*
+.dyad/
