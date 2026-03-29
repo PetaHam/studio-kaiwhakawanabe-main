@@ -1,11 +1,11 @@
-import type { JestConfigWithTsJest } from 'ts-jest'
+import type { Config } from '@jest/types'
 import nextJest from 'next/jest'
 
 const createJestConfig = nextJest({
   dir: './',
 })
 
-const config: JestConfigWithTsJest = {
+const config: Config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],

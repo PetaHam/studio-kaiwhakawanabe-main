@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useMemo, useState, useEffect } from 'react'
@@ -46,19 +45,19 @@ import { JudgesHonourCard, JudgesHonourModal } from '@/components/JudgesModal'
 const IS_SEASON_ACTIVE = true;
 
 const JUDGE_QUOTES = [
-  "May ye judge fairly and true… or y’know, just go full Reddit mod and ban whoever hurt your feelings that day.",
+  "May ye judge fairly and true… or y'know, just go full Reddit mod and ban whoever hurt your feelings that day.",
   "May your judgments be fair and true… failing that, at least make them entertainingly unhinged.",
-  "May ye judge with wisdom and impartiality… or just projectile-vomit your hot takes like the rest of us.",
+  "May ye judge fairly and with an open heart… lol jk, bring your pitchforks and confirmation bias, it's quicker.",
   "May ye judge fairly and true… or wildly misread the situation and then die on that hill like a legend.",
   "May your rulings be just and true… or at minimum, spelled correctly when you send them out.",
-  "May ye judge fairly and with an open heart… lol jk, bring the pitchforks and confirmation bias, it’s quicker.",
-  "May ye judge fairly and true… or just pick whoever has the cutest profile picture, we’re not solving world peace here.",
-  "May your judgment be fair, true, and merciful… said no one who’s ever been in a group chat.",
+  "May ye judge fairly and with an open heart… lol jk, bring pitchforks and confirmation bias, it's quicker.",
+  "May ye judge fairly and true… or just pick whoever has the cutest profile picture, we're not solving world peace here.",
+  "May your judgment be fair, true, and merciful… said no one who's ever been in a group chat.",
   "May ye judge fairly and true… or at least pretend you read the whole post before you start typing in all caps.",
   "May ye judge with fairness and truth… or just blame the Virgo in the room and call it a day.",
   "May your verdicts be equitable and accurate… or hilariously wrong in ways historians will study for centuries.",
-  "May ye judge fairly and true… unless they said “unalive” unironically, then all bets are off.",
-  "May ye judge with integrity and truth… or just stan whoever owns the most cats, it’s basically the same thing."
+  "May ye judge fairly and true… unless they said \"unalive\" unironically, then all bets are off.",
+  "May ye judge with integrity and truth… or just stan whoever owns the most cats, it's basically the same thing."
 ];
 
 
@@ -397,7 +396,7 @@ export default function Home() {
                 </div>
               </div>
               <Link href="/login?returnUrl=/">
-                <Button size="sm" className="h-10 px-5 rounded-full font-black text-[10px] uppercase italic bg-slate-950 text-white hover:bg-primary transition-all shadow-lg active:scale-95">
+                <Button size="sm" className="h-10 px-5 rounded-full font-black text-[10px] uppercase italic bg-primary-container text-on-primary-container hover:scale-[1.02] transition-all shadow-lg active:scale-95">
                   SIGN IN <ChevronRight className="w-3.5 h-3.5 ml-1" />
                 </Button>
               </Link>
@@ -546,8 +545,13 @@ export default function Home() {
               </div>
               <div className="text-left">
                 <p className="text-sm font-black uppercase italic text-slate-950">Solo Judging</p>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight leading-tight">Standard live circuit voting</p>
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight leading-tight label-text">Standard live circuit voting</p>
               </div>
+              {user?.isAnonymous && (
+                <div className="absolute top-2 right-4">
+                  <Badge className="heritage-badge text-[7px] font-black uppercase">Registered Only</Badge>
+                </div>
+              )}
             </Button>
 
             <Button 
@@ -569,13 +573,13 @@ export default function Home() {
               </div>
               <div className="text-left">
                 <p className="text-sm font-black uppercase italic text-slate-950">Group Judging</p>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight leading-tight">
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight leading-tight label-text">
                   {user?.isAnonymous ? "Sign in to sync panel" : "Sync panel marks in real-time"}
                 </p>
               </div>
               {user?.isAnonymous && (
                 <div className="absolute top-2 right-4">
-                  <Badge className="bg-slate-950 text-white text-[7px] font-black uppercase">Registered Only</Badge>
+                  <Badge className="heritage-badge text-[7px] font-black uppercase">Registered Only</Badge>
                 </div>
               )}
             </Button>
@@ -634,7 +638,7 @@ export default function Home() {
                     <Button 
                       size="sm" 
                       onClick={() => setConfirmingOption(opt.id)}
-                      className="h-9 px-5 rounded-2xl font-black text-[10px] uppercase italic bg-slate-950 text-white hover:bg-primary transition-all shadow-lg active:scale-95"
+                      className="h-9 px-5 rounded-full font-black text-[10px] uppercase italic bg-primary-container text-on-primary-container hover:scale-[1.02] transition-all shadow-lg active:scale-95"
                     >
                       VOTE
                     </Button>
@@ -840,7 +844,7 @@ export default function Home() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex-col gap-3 sm:flex-col mt-10">
-            <AlertDialogAction className="w-full font-black uppercase italic h-16 text-lg bg-primary text-slate-950 rounded-2xl shadow-xl active:scale-95 transition-all" onClick={() => { handleVote(confirmingOption!); setConfirmingOption(null); }}>CONFIRM VOTE</AlertDialogAction>
+            <AlertDialogAction className="w-full font-black uppercase italic h-16 text-lg bg-primary-container text-on-primary-container rounded-[2rem] shadow-xl active:scale-95 transition-all hover:scale-[1.02]" onClick={() => { handleVote(confirmingOption!); setConfirmingOption(null); }}>CONFIRM VOTE</AlertDialogAction>
             <AlertDialogCancel className="w-full font-black uppercase italic border-none text-muted-foreground h-12 text-[10px] tracking-widest hover:text-slate-600 transition-colors">MAYBE LATER</AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>

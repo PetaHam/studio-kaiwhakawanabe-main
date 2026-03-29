@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useMemo, useEffect, useRef } from 'react'
@@ -248,10 +247,10 @@ export default function PerformanceDetailPage() {
 
   if (partyId && currentMember?.status === 'pending' && activeParty?.leaderId !== user?.uid) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background px-6 text-center animate-in fade-in zoom-in-95 duration-500">
+      <div className="min-h-screen bg-surface flex flex-col items-center justify-center bg-background px-6 text-center animate-in fade-in zoom-in-95 duration-500">
         <LockIcon className="w-16 h-16 text-primary mb-6 animate-pulse" />
-        <h2 className="text-3xl font-black uppercase italic tracking-tighter text-slate-950 mb-2">Waiting Room</h2>
-        <p className="text-[10px] text-center font-black text-slate-400 uppercase tracking-widest max-w-[200px] leading-relaxed">
+        <h2 className="text-3xl font-black uppercase italic tracking-tighter text-slate-950 mb-2 display-text">Waiting Room</h2>
+        <p className="text-[10px] text-center font-black text-slate-400 uppercase tracking-widest max-w-[200px] leading-relaxed label-text">
           Matataki is assigning your judge delegation items...
         </p>
         <Button variant="outline" onClick={handleDisconnect} className="mt-12 rounded-full h-12 px-8 font-black uppercase text-[10px] tracking-widest text-slate-500">Leave Lobby</Button>
@@ -283,7 +282,7 @@ export default function PerformanceDetailPage() {
                 <div key={cat.id} className="space-y-2">
                   <div className="flex justify-between items-center"><label className="text-[9px] font-black uppercase italic">{cat.name}</label><span className="text-[10px] font-black text-primary">{scores[cat.id].toFixed(1)}%</span></div>
                   <Slider value={[scores[cat.id]]} max={100} step={0.1} onValueChange={v => setScores(p => ({ ...p, [cat.id]: v[0] }))} disabled={submittedItems[cat.id] || (activeParty?.leaderId !== user?.uid && !currentMember?.assignedItems?.includes(cat.id))} className={cn((activeParty?.leaderId !== user?.uid && !currentMember?.assignedItems?.includes(cat.id)) && "opacity-40 grayscale")} />
-                  {!submittedItems[cat.id] && <button onClick={() => setItemToConfirm(cat.id)} className="text-[7px] font-black text-primary uppercase tracking-widest mt-1">LOCK MARKS</button>}
+                  {!submittedItems[cat.id] && <button onClick={() => setItemToConfirm(cat.id)} className="text-[7px] font-black text-primary uppercase tracking-widest mt-1 label-text">LOCK MARKS</button>}
                 </div>
               ))}
             </div>
@@ -296,7 +295,7 @@ export default function PerformanceDetailPage() {
           <div className="flex flex-col gap-4 pb-10">
             {partyMessages?.map(m => (
               <div key={m.id} className={cn("flex flex-col", m.userId === user?.uid ? "items-end" : "items-start")}>
-                <div className="p-3 rounded-2xl text-[11px] shadow-sm bg-white border max-w-[85%]">{m.text}</div>
+                <div className="p-3 rounded-2xl text-[11px] shadow-sm surface-low border max-w-[85%]">{m.text}</div>
               </div>
             ))}
             <div ref={scrollRef} />
@@ -319,18 +318,18 @@ export default function PerformanceDetailPage() {
       {partyId && (
         <div className="p-4 bg-white border-t rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
           <div className="flex justify-center mb-4 mt-[-2.5rem] relative z-20">
-            <Button variant={showScoreboard ? "default" : "outline"} size="sm" onClick={() => setShowScoreboard(!showScoreboard)} className="h-10 px-6 rounded-full font-black text-[10px] uppercase italic gap-2 shadow-xl bg-white border-slate-200 text-primary">
+            <Button variant={showScoreboard ? "glass" : "outline"} size="sm" onClick={() => setShowScoreboard(!showScoreboard)} className="h-10 px-6 rounded-full font-black text-[10px] uppercase italic gap-2 shadow-xl bg-white border-slate-200 text-primary hover:bg-white/90">
               <Gavel className="w-4 h-4" /> {showScoreboard ? 'CLOSE PANEL' : 'JUDGE PANEL'}
             </Button>
           </div>
-          <div className="relative"><Input placeholder="Type technical hot-take..." value={comment} onChange={e => setComment(e.target.value)} className="rounded-2xl h-12 bg-slate-50 pr-12" /><Button className="absolute right-1 top-1/2 -translate-y-1/2 h-10 w-10 p-0 rounded-xl bg-primary text-slate-950" onClick={() => handleSendMessage(comment)} disabled={!comment.trim()}><Send className="w-4 h-4" /></Button></div>
+          <div className="relative"><Input placeholder="Type technical hot-take..." value={comment} onChange={e => setComment(e.target.value)} className="rounded-2xl h-12 bg-slate-50 pr-12" /><Button className="absolute right-1 top-1/2 -translate-y-1/2 h-10 w-10 p-0 rounded-xl signature-gradient text-slate-950 hover:scale-[1.02] transition-transform" onClick={() => handleSendMessage(comment)} disabled={!comment.trim()}><Send className="w-4 h-4" /></Button></div>
         </div>
       )}
 
       <AlertDialog open={!!itemToConfirm} onOpenChange={o => !o && setItemToConfirm(null)}>
-        <AlertDialogContent className="rounded-[2.5rem] p-10 max-w-[350px] shadow-2xl">
-          <AlertDialogHeader><AlertDialogTitle className="uppercase italic font-black text-2xl text-center">Confirm Marks?</AlertDialogTitle></AlertDialogHeader>
-          <AlertDialogFooter className="flex-col gap-3 sm:flex-col mt-8"><AlertDialogAction className="w-full font-black uppercase italic h-16 text-lg bg-primary text-slate-950 rounded-2xl" onClick={() => finalizeScore(itemToConfirm!)}>Lock Score</AlertDialogAction><AlertDialogCancel className="w-full font-black uppercase italic border-none text-muted-foreground h-10 text-[10px]">Cancel</AlertDialogCancel></AlertDialogFooter>
+        <AlertDialogContent className="rounded-[2.5rem] p-10 max-w-[350px] shadow-2xl glass-card">
+          <AlertDialogHeader><AlertDialogTitle className="uppercase italic font-black text-2xl text-center display-text text-primary">Confirm Marks?</AlertDialogTitle></AlertDialogHeader>
+          <AlertDialogFooter className="flex-col gap-3 sm:flex-col mt-8"><AlertDialogAction className="w-full font-black uppercase italic h-16 text-lg signature-gradient text-slate-950 rounded-2xl hover:scale-[1.02] transition-transform shadow-xl" onClick={() => finalizeScore(itemToConfirm!)}>Lock Score</AlertDialogAction><AlertDialogCancel className="w-full font-black uppercase italic border-none text-muted-foreground h-10 text-[10px] tracking-widest hover:text-slate-600 transition-colors">Cancel</AlertDialogCancel></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     </div>
