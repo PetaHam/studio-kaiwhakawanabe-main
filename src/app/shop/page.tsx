@@ -18,6 +18,8 @@ import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates'
 import { showToast } from '@/lib/toast-helpers'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import { InsufficientShardsModal } from '@/components/InsufficientShardsModal'
+import { QuickBuyModal } from '@/components/QuickBuyModal'
 
 // ==================== DATA STRUCTURES ====================
 
@@ -268,6 +270,14 @@ export default function ShopPage() {
   const db = useFirestore()
   const [purchasing, setPurchasing] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState('mana')
+  
+  // Modal states
+  const [showInsufficientModal, setShowInsufficientModal] = useState(false)
+  const [showQuickBuyModal, setShowQuickBuyModal] = useState(false)
+  const [insufficientDetails, setInsufficientDetails] = useState({
+    required: 0,
+    itemName: ''
+  })
 
   // Fetch user data
   const userRef = user ? doc(db, 'users', user.uid) : null
@@ -313,7 +323,12 @@ export default function ShopPage() {
     }
 
     if (method === 'shards' && userMana < team.shardCost) {
-      showToast.error('Insufficient Shards', `You need ${team.shardCost.toLocaleString()} shards`)
+      // Show insufficient shards modal instead of toast
+      setInsufficientDetails({
+        required: team.shardCost,
+        itemName: team.name
+      })
+      setShowInsufficientModal(true)
       return
     }
 
@@ -348,6 +363,14 @@ export default function ShopPage() {
     }
 
     if (method === 'shards' && userMana < cosmetic.shardCost) {
+      // Show insufficient shards modal
+      setInsufficientDetails({
+        required: cosmetic.shardCost,
+        itemName: cosmetic.name
+      })
+      setShowInsufficientModal(true)
+      return
+    }
       showToast.error('Insufficient Shards', `You need ${cosmetic.shardCost.toLocaleString()} shards`)
       return
     }
@@ -795,6 +818,26 @@ export default function ShopPage() {
           </div>
         </div>
       )}
+
+      {/* Insufficient Shards Modal */}
+      <InsufficientShardsModal
+        isOpen={showInsufficientModal}
+        onClose={() => setShowInsufficientModal(false)}
+        onBuyShards={() => {
+          setShowInsufficientModal(false)
+          setShowQuickBuyModal(true)
+        }}
+        required={insufficientDetails.required}
+        current={userMana}
+        itemName={insufficientDetails.itemName}
+      />
+
+      {/* Quick Buy Modal */}
+      <QuickBuyModal
+        isOpen={showQuickBuyModal}
+        onClose={() => setShowQuickBuyModal(false)}
+        highlightAmount={insufficientDetails.required - userMana}
+      />
     </div>
   )
 }
