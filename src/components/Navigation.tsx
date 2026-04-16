@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Calendar, Layers, User, Activity } from 'lucide-react'
+import { Home, Calendar, Layers, User, Activity, ShoppingBag } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useUser } from '@/firebase'
 
 const navItems = [
   { label: 'Home', icon: Home, href: '/' },
   { label: 'Draft', icon: Layers, href: '/matchups' },
-  { label: 'Live Voting', icon: Activity, href: '/vote' },
+  { label: 'Shop', icon: ShoppingBag, href: '/shop' },
   { label: 'Events', icon: Calendar, href: '/events' },
   { label: 'Profile', icon: User, href: '/profile' },
 ]
